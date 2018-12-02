@@ -8,8 +8,8 @@ namespace SimulatedCaffe
 {
     interface PeopleFactory
     {
-         void CreatePeople();
-        void CreatePeople3();
+         People CreatePeople(string name, double PositionX, double PositionY);
+
         
     }
 }

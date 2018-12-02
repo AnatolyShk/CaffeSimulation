@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class Customer
+    class Customer:People
     {
+
+        int budget;
+        public Customer(string name, double PositionX, double PositionY, int budget ):base(name,PositionX,PositionY)
+        {
+            this.budget = budget;
+        }
     }
 }

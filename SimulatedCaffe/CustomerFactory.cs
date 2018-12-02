@@ -8,5 +8,10 @@ namespace SimulatedCaffe
 {
     class CustomerFactory : PeopleFactory
     {
+        int budget;
+       public  People CreatePeople(string name, double PositionX, double PositionY)
+       {
+            return new Customer(name,PositionX,PositionY,budget);
+       }
     }
 }
