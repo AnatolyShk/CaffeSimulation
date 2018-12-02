@@ -9,6 +9,7 @@ namespace SimulatedCaffe
     interface PeopleFactory
     {
          void CreatePeople();
+        void CreatePeople3();
         
     }
 }
