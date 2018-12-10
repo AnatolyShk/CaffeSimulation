@@ -8,10 +8,13 @@ namespace SimulatedCaffe
 {
     public class CustomerInPlace : Customer
     {
+        int budget;
         public Table Target = null ;
-        public CustomerInPlace(string name, int PositionX, int PositionY, int budget) : base(name, PositionX, PositionY,budget)
+        StateCustInPlace state;
+        public CustomerInPlace(string name, int PositionX, int PositionY, int budget, State state) : base(name, PositionX, PositionY,budget)
         {
-
+            this.budget = budget;
+            this.state = (StateCustInPlace)state;
         }
         public Table FindFreeTable(Table tables)
         {

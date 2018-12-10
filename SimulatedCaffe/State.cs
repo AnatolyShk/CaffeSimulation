@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    public interface PeopleFactory
+   public interface State
     {
-         People CreatePeople(string name, int PositionX, int PositionY, State state);
-
-        
     }
 }

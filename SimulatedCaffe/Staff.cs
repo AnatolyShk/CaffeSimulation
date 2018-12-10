@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class Staff:People
+    public class Staff:People
     {
         string workSpace;
         public Staff(string name, int PositionX, int PositionY,string workSpace):base(name,PositionX,PositionY)

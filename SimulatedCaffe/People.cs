@@ -8,7 +8,7 @@ namespace SimulatedCaffe
 {
     public class People
     {
-
+        public State state;
         public string name;
         public int positionX;
         public int positionY;

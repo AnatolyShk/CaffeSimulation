@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    public interface PeopleFactory
+    public class StateCustInPlace :State
     {
-         People CreatePeople(string name, int PositionX, int PositionY, State state);
+       void Handle(CustomerInPlace customer)
+        {
 
-        
+        }
     }
 }

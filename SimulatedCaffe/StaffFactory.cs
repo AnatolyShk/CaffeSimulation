@@ -9,7 +9,7 @@ namespace SimulatedCaffe
     public class StaffFactory : PeopleFactory
     {
         string workSpace;
-        public People CreatePeople(string name, int PositionX, int PositionY)
+        public People CreatePeople(string name, int PositionX, int PositionY,State state)
         {
             return new Staff(name,PositionX,PositionY,workSpace);
         }

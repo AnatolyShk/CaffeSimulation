@@ -18,13 +18,18 @@ namespace CaffeSimulation
         public int i = 10;
         public int count =0;
         public int t;
+        public int peopleCounter;
+        public int staffCounter;
         public Bitmap bmp; //Здесь рисуем
         public List<Rectangle> R = new List<Rectangle>();
         public List<People> peoplelist = new List<People>();
+        public List<Staff> staffList = new List<Staff>();
         public List<CustomerInPlace> peoplelistIT = new List<CustomerInPlace>();
         public CustomerFactory customerFact = new CustomerFactory();
+        public StaffFactory staffFactory = new StaffFactory();
         public List<Rectangle> Ellipse = new List<Rectangle>();
         public Random rng = new Random();
+        public List<Rectangle> staff = new List<Rectangle>();
         public List<Table> tableList = new List<Table>();
         public Form1()
         {
@@ -43,13 +48,18 @@ namespace CaffeSimulation
         {
 
         }
-
+        
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            staffCounter++;
             Graphics G = Graphics.FromImage(bmp); pictureBox1.Image = bmp;
-    
              G.DrawEllipse(new Pen(Color.Black), Cursor.Position.X-5,Cursor.Position.Y-30, 40, 40);
-            tableList.Add(new Table(t,Cursor.Position.X-5, Cursor.Position.Y-30));
+            Table table = new Table(t, Cursor.Position.X - 5, Cursor.Position.Y - 30);
+            tableList.Add(table);
+            Staff staff = (Staff)staffFactory.CreatePeople(staffCounter.ToString(), table.PositionX-10, table.PositionY-10,new StateWaiter());
+            staff.state = new WaiterPending();
+            staffList.Add(staff);
+            G.DrawEllipse(new Pen(Color.Red), table.PositionX, table.PositionY, 50, 50);
             t++;
             for (int i = 0; i < tableList.Count(); i++)
             {
@@ -72,9 +82,15 @@ namespace CaffeSimulation
             {
 
                     peoplelistIT[p].MoveToTarget(peoplelistIT[p].Target.PositionX, peoplelistIT[p].Target.PositionY);
-      
-                    peoplelistIT[p].MoveToTarget(peoplelistIT[p].Target.PositionX, peoplelistIT[p].Target.PositionY);
-                
+                textBox1.Text = peoplelistIT[p].name.ToString() + peoplelistIT[p].state.ToString() ;
+                if (peoplelistIT[p].Target.PositionX == peoplelistIT[p].positionX && peoplelistIT[p].Target.PositionY == peoplelistIT[p].positionY)
+                {
+                    peoplelistIT[p].state = new Ordering();
+                    textBox1.Text = peoplelistIT[p].state.ToString();
+
+                };
+
+
             }
             for (int j = 0; j < peoplelist.Count; j++)
             {
@@ -89,21 +105,33 @@ namespace CaffeSimulation
             for (int j = 0; j < tableList.Count; j++)
             {
                 Ellipse.Add(new Rectangle(tableList[j].PositionX, tableList[j].PositionY,20,20));
+
                 for (int k = 0; k < Ellipse.Count; k++)
                 {
                     G.DrawEllipse(pencil, Ellipse[k]);
                 }
             }
+            for (int j = 0; j < staffList.Count; j++)
+            {
+                staff.Add(new Rectangle(staffList[j].positionX, staffList[j].positionY, 40, 40));
+                for (int k = 0; k < staff.Count; k++)
+                {
+                    G.DrawRectangle(new Pen(Color.Red), staff[k]);
+                }
+            }
             R.Clear();
             Ellipse.Clear();
+            staff.Clear();
             peoplelistIT.Clear();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             l++;
-            CustomerInPlace cust = (CustomerInPlace)customerFact.CreatePeople("first", 200, 100 - l);
+            peopleCounter++;
+            CustomerInPlace cust = (CustomerInPlace)customerFact.CreatePeople(peopleCounter.ToString(), 200, 100 - l,new StateCustInPlace());
             cust.budget = rng.Next(100, 1000);
+            cust.state = new NewComer();
             for (int i = 0; i < tableList.Count(); i++)
             {
                 tableList[i] = cust.FindFreeTable(tableList[i]);
