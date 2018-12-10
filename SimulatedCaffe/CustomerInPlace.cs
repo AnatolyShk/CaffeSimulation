@@ -6,24 +6,23 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class CustomerInPlace : Customer
+    public class CustomerInPlace : Customer
     {
-        int Target;
-        public CustomerInPlace(string name, double PositionX, double PositionY, int budget) : base(name, PositionX, PositionY,budget)
+        public Table Target = null ;
+        public CustomerInPlace(string name, int PositionX, int PositionY, int budget) : base(name, PositionX, PositionY,budget)
         {
 
         }
-        public void FindFreeTable(List<Table> tables)
+        public Table FindFreeTable(Table tables)
         {
-            int i =0;
-            while (tables[i].Free!=true)
-            {
-                i++;
-                if(tables[i].Free == true)
+                if(tables.Free == true && Target == null )
                 {
-                    Target = tables[i].Number;
+                Target = tables;
+                tables.Free = false;
+                return tables;
                 }
-            }
+            return tables;
+
         }
     }
 }

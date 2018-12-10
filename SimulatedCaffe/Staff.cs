@@ -9,7 +9,7 @@ namespace SimulatedCaffe
     class Staff:People
     {
         string workSpace;
-        public Staff(string name, double PositionX, double PositionY,string workSpace):base(name,PositionX,PositionY)
+        public Staff(string name, int PositionX, int PositionY,string workSpace):base(name,PositionX,PositionY)
         {
             this.workSpace = workSpace;
         }

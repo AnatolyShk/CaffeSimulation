@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class StaffFactory : PeopleFactory
+    public class StaffFactory : PeopleFactory
     {
         string workSpace;
-        public People CreatePeople(string name, double PositionX, double PositionY)
+        public People CreatePeople(string name, int PositionX, int PositionY)
         {
             return new Staff(name,PositionX,PositionY,workSpace);
         }

@@ -6,22 +6,48 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class People
+    public class People
     {
 
-        string name;
-        double positionX;
-        double positionY;
-        public void Move(double rangeX, double rangeY)
+        public string name;
+        public int positionX;
+        public int positionY;
+        public void Move(int rangeX, int rangeY)
         {
             this.positionX += rangeX;
             this.positionY += rangeY;
         }
-        public People(string name, double PositionX, double PositionY)
+        public People(string name, int PositionX, int PositionY)
         {
             this.name = name;
             this.positionX = PositionX;
             this.positionY = PositionY;
+        }
+        public void MoveToTarget(int TargetPosX , int TargetPosY)
+        {
+                if (this.positionX < TargetPosX)
+                {
+                 
+                        this.positionX ++;
+                    
+                }
+                if (this.positionX > TargetPosX)
+                {
+                        this.positionX--;
+                    
+                }
+
+                if (this.positionY < TargetPosY)
+                {
+                        this.positionY++;
+                    
+                }
+                if (this.positionY > TargetPosY)
+                {
+                        this.positionY--;
+                    
+                }
+            
         }
 
     }

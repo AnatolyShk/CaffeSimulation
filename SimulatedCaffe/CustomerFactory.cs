@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class CustomerFactory : PeopleFactory
+    public class CustomerFactory : PeopleFactory
     {
         int budget;
-       public  People CreatePeople(string name, double PositionX, double PositionY)
+       public  People CreatePeople(string name, int PositionX, int PositionY)
        {
-            return new Customer(name,PositionX,PositionY,budget);
+            return new CustomerInPlace(name,PositionX,PositionY,budget);
        }
     }
 }

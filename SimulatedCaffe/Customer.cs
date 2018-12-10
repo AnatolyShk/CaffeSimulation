@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class Customer:People
+    public class Customer:People
     {
 
-        int budget;
-        public Customer(string name, double PositionX, double PositionY, int budget ):base(name,PositionX,PositionY)
+        public int budget;
+        public Customer(string name, int PositionX, int PositionY, int budget ):base(name,PositionX,PositionY)
         {
             this.budget = budget;
         }

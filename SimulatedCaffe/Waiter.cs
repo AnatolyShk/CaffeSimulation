@@ -9,7 +9,7 @@ namespace SimulatedCaffe
     class Waiter : Staff
     {
         List<string> orders;
-        public Waiter(string name, double PositionX, double PositionY, string workSpace):base(name,PositionX,PositionY,workSpace)
+        public Waiter(string name, int PositionX, int PositionY, string workSpace):base(name,PositionX,PositionY,workSpace)
         {
 
         }

@@ -6,9 +6,17 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class Table
+    public class Table
     {
-       public bool Free;
+        public bool Free  = true;
         public int Number;
+        public int PositionX;
+        public int PositionY;
+        public Table(int number,int PositionX, int PositionY)
+        {
+            this.Number = number;
+            this.PositionX = PositionX;
+            this.PositionY = PositionY;
+        }
     }
 }
