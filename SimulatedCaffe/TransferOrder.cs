@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class Pending:StateCustInPlace
+    class TransferOrder : StateWaiter
     {
-        public string name = "Pending";
         public void Handle(CustomerInPlace customer)
         {
-            customer.state = new Pending();
+            customer.state = new WaiterGetOrder();
         }
     }
 }

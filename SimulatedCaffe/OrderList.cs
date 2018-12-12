@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class OrderList
+    public class OrderList
     {
         List<string> orders;
         public void Notify(List<string> orders)

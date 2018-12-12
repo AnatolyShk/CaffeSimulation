@@ -12,6 +12,7 @@ namespace SimulatedCaffe
         public int Number;
         public int PositionX;
         public int PositionY;
+        public CustomerInPlace customer;
         public Table(int number,int PositionX, int PositionY)
         {
             this.Number = number;

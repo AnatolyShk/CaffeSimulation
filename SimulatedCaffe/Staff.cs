@@ -8,8 +8,8 @@ namespace SimulatedCaffe
 {
     public class Staff:People
     {
-        string workSpace;
-        public Staff(string name, int PositionX, int PositionY,string workSpace):base(name,PositionX,PositionY)
+        Table workSpace;
+        public Staff(string name, int PositionX, int PositionY,Table workSpace):base(name,PositionX,PositionY)
         {
             this.workSpace = workSpace;
         }

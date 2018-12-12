@@ -8,10 +8,10 @@ namespace SimulatedCaffe
 {
     public class StaffFactory : PeopleFactory
     {
-        string workSpace;
+        Table workSpace;
         public People CreatePeople(string name, int PositionX, int PositionY,State state)
         {
-            return new Staff(name,PositionX,PositionY,workSpace);
+            return new Waiter(name,PositionX,PositionY,workSpace);
         }
     }
 }
