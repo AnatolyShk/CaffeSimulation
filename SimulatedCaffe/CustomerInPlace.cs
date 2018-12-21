@@ -14,12 +14,13 @@ namespace SimulatedCaffe
         public int Timer;
         Random rng;
         StateCustInPlace state;
+        State st { get; set; }
         public CustomerInPlace(string name, int PositionX, int PositionY, int budget, State state) : base(name, PositionX, PositionY,budget)
         {
             rng = new Random();
             this.budget = budget;
             this.state = (StateCustInPlace)state;
-            this.EatTime = rng.Next(10, 10);
+            this.EatTime = rng.Next(10, 60);
         }
         public Table FindFreeTable(Table tables)
         {
@@ -31,6 +32,11 @@ namespace SimulatedCaffe
                 }
             return tables;
 
+        }
+        public void  MakeOrdering()
+        {
+            state.getOrder(this);
+            state = new NewComer();
         }
     }
 }

@@ -8,9 +8,9 @@ namespace SimulatedCaffe
 {
     public class StateCustInPlace :State
     {
-       void Handle(CustomerInPlace customer)
+       public void getOrder(CustomerInPlace customer)
         {
-
+            customer.state = new NewComer();
         }
     }
 }

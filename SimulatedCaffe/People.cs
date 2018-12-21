@@ -12,6 +12,8 @@ namespace SimulatedCaffe
         public string name;
         public int positionX;
         public int positionY;
+        public int targetPosX =5;
+        public int targetPosY = 150;
         public void Move(int rangeX, int rangeY)
         {
             this.positionX += rangeX;

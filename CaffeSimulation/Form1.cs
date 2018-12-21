@@ -21,6 +21,10 @@ namespace CaffeSimulation
         public int peopleCounter;
         public int staffCounter;
         public int Timer;
+        public int targetX = 1;
+        public int targetY = 1;
+        public int starttargetX = 0;
+        public int starttargetY = 0;
         public Bitmap bmp; //Здесь рисуем
         public List<Rectangle> R = new List<Rectangle>();
         public List<People> peoplelist = new List<People>();
@@ -52,6 +56,7 @@ namespace CaffeSimulation
         
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            
             staffCounter++;
             Graphics G = Graphics.FromImage(bmp); pictureBox1.Image = bmp;
              G.DrawEllipse(new Pen(Color.Black), Cursor.Position.X-5,Cursor.Position.Y-30, 40, 40);
@@ -68,7 +73,7 @@ namespace CaffeSimulation
                 textBox1.Text = tableList[i].Free.ToString();
             }
         }
-
+        bool first = false;
         private void timer1_Tick(object sender, EventArgs e)
         {
             richTextBox1.Text = " ";
@@ -91,10 +96,26 @@ namespace CaffeSimulation
             }
             for (int p = 0; p < tableList.Count; p++)
             {
-                richTextBox3.Text += "Waiter on Table №" + staffList[p].name.ToString() + staffList[p].state.ToString()+ "\n";
-                if(staffList[p].state.ToString() == "SimulatedCaffe.TransferOrder" )
+                if (staffList[p].positionX <= 5 && staffList[p].positionY <= 150)
                 {
-                    staffList[p].MoveToTarget(10, 10);
+                    staffList[p].targetPosX  = staffList[p].workSpace.PositionX;
+                    staffList[p].targetPosY = staffList[p].workSpace.PositionY;
+                }
+                else if (staffList[p].positionX == staffList[p].workSpace.PositionX && staffList[p].positionY == staffList[p].workSpace.PositionY)
+                {
+                    staffList[p].state = new WaiterPending();
+                    staffList[p].targetPosX = 5;
+                    staffList[p].targetPosY = 150;
+                }
+                richTextBox3.Text += "Waiter on Table №" + staffList[p].name.ToString() + staffList[p].state.ToString()+ "\n";
+                richTextBox3.Text += staffList[p].positionX + " " + staffList[p].positionY + " " + starttargetX +" " + starttargetY + " " + targetX + " " + targetY + " " + staffList[p].state.ToString() ;
+
+                if (staffList[p].state.ToString() == "SimulatedCaffe.TransferOrder" )
+                {
+                    G.FillRectangle(Brushes.White, new Rectangle(0, 0, pictureBox1.Width, pictureBox1.Height));
+                    staffList[p].MoveToTarget(staffList[p].targetPosX, staffList[p].targetPosY);
+
+                   
                 }
 
             }
@@ -111,13 +132,13 @@ namespace CaffeSimulation
                 {
                     
                     
-                        if (people.state.ToString() != "SimulatedCaffe.Leaving")
+                        if (peoplelistIT[p].state.ToString() != "SimulatedCaffe.Leaving")
                         {
 
                             peoplelistIT[p].MoveToTarget(peoplelistIT[p].Target.PositionX, peoplelistIT[p].Target.PositionY);
                         }
                         textBox1.Text = peoplelistIT[p].name.ToString() + " " + peoplelistIT[p].state.ToString();
-                        if (peoplelistIT[p].Target.PositionX == peoplelistIT[p].positionX && peoplelistIT[p].Target.PositionY == peoplelistIT[p].positionY && people.state.ToString() != "SimulatedCaffe.Leaving")
+                        if (peoplelistIT[p].Target.PositionX == peoplelistIT[p].positionX && peoplelistIT[p].Target.PositionY == peoplelistIT[p].positionY && people.state.ToString() == "SimulatedCaffe.NewComer")
                         {
                             
                             peoplelistIT[p].state = new Ordering();
@@ -127,7 +148,7 @@ namespace CaffeSimulation
 
 
 
-                        if (people.state.ToString() == "SimulatedCaffe.Ordering")
+                        if (people.state.ToString() == "SimulatedCaffe.Ordering" && people.state.ToString() != "SimulatedCaffe.Pending" && people.state.ToString() != "SimulatedCaffe.Eating")
                         {
                             Timer++;
                             if (Timer > 70)
@@ -143,23 +164,27 @@ namespace CaffeSimulation
                             }
 
                         }
-                        if (people.state.ToString() == "SimulatedCaffe.Pending")
+                    if (people.state.ToString() == "SimulatedCaffe.Pending")
+                    {
+
+                        if (waiter.positionX == waiter.workSpace.PositionX)
                         {
-                            Timer++;
-                            if (Timer > 160)
-                            {
+                       
                                 Dialogue dialogue = new Dialogue();
-                            dialogue.PickUpOrder(ref waiter, ref people);
-                            peoplelist[p] = people;
-                            staffList[p] = waiter;
-                            textBox1.Text = peoplelistIT[p].name + " " + peoplelistIT[p].state.ToString();
-                            }
+                                dialogue.PickUpOrder(ref waiter, ref people);
+                                peoplelist[p] = people;
+                                staffList[p] = waiter;
+                                textBox1.Text = peoplelistIT[p].name + " " + peoplelistIT[p].state.ToString();
+                             Timer = 0 ;
 
                         }
+                    }
                         if (people.state.ToString() == "SimulatedCaffe.Eating")
                         {
-                            peoplelistIT[p].Timer++;
-                            if (peoplelistIT[p].Timer > peoplelistIT[p].EatTime)
+                           Timer+=1;
+                        textBox2.Text = " ";
+                        textBox2.Text = peoplelistIT[p].name + " " + peoplelistIT[p].state.ToString() + " " + Timer;
+                        if (Timer > peoplelistIT[p].EatTime)
                             {
                                 Dialogue dialogue = new Dialogue();
                             dialogue.LeaveOrder(ref waiter, ref people);
@@ -168,7 +193,7 @@ namespace CaffeSimulation
                             //  peoplelist.RemoveAt(p);
                             peoplelistIT[p].Target.Free = true;
                                 G.FillRectangle(Brushes.White, new Rectangle(0, 0, pictureBox1.Width, pictureBox1.Height));
-                                textBox1.Text = peoplelistIT[p].name + " " + peoplelistIT[p].state.ToString();
+                                textBox2.Text = peoplelistIT[p].name + " " + peoplelistIT[p].state.ToString() +" " + peoplelistIT[p].Timer;
                             }
 
                         }
@@ -211,6 +236,8 @@ namespace CaffeSimulation
                 for (int k = 0; k < Ellipse.Count; k++)
                 {
                     G.DrawEllipse(pencil, Ellipse[k]);
+                    G.DrawRectangle(new Pen(Color.Green), new Rectangle(0, 0, 20, 50));
+                    G.DrawRectangle(new Pen(Color.Brown), new Rectangle(5, 150, 20, 50));
                 }
             }
             for (int j = 0; j < staffList.Count; j++)
@@ -231,9 +258,9 @@ namespace CaffeSimulation
         {
             l++;
             peopleCounter++;
-            CustomerInPlace cust = (CustomerInPlace)customerFact.CreatePeople(peopleCounter.ToString(), 10, 100 - l,new StateCustInPlace());
+            CustomerInPlace cust = (CustomerInPlace)customerFact.CreatePeople(peopleCounter.ToString(), 0, 0,new StateCustInPlace());
             cust.budget = rng.Next(100, 1000);
-            cust.state = new NewComer();
+            cust.MakeOrdering();
             for (int i = 0; i < tableList.Count(); i++)
             {
                 tableList[i] = cust.FindFreeTable(tableList[i]);
@@ -259,6 +286,11 @@ namespace CaffeSimulation
         }
 
         private void richTextBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
