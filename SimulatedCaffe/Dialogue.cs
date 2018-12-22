@@ -8,7 +8,7 @@ namespace SimulatedCaffe
 {
     public class Dialogue
     {
-        public void GetOrder(ref Waiter waiter, ref  People customer)
+        public void GetOrder(ref Waiter waiter, ref CustomerInPlace customer)
         {
             customer.state = new Pending();
             if (waiter.state.ToString() != "TransferOrder")
@@ -16,11 +16,11 @@ namespace SimulatedCaffe
                 waiter.state = new TransferOrder();
             }
         }
-        public void PickUpOrder(ref Waiter waiter , ref People customer)
+        public void PickUpOrder(ref Waiter waiter , ref CustomerInPlace customer)
         {
             customer.state = new Eating();
         }
-        public void LeaveOrder(ref Waiter waiter, ref People customer)
+        public void LeaveOrder(ref Waiter waiter, ref CustomerInPlace customer)
         {
             customer.state = new Leaving();
         }

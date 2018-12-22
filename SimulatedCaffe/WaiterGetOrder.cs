@@ -8,7 +8,7 @@ namespace SimulatedCaffe
 {
     class WaiterGetOrder : StateWaiter
     {
-        public void Handle(CustomerInPlace customer)
+        public void Handle(Waiter customer)
         {
             customer.state = new  WaiterGetOrder();
         }

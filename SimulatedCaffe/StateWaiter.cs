@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    public class StateWaiter: State
+    public interface StateWaiter:State
     {
-        void Handle(CustomerInPlace customer)
-        {
-
-        }
+        void Handle(Waiter customer);
     }
 }

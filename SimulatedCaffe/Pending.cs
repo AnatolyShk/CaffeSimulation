@@ -9,9 +9,15 @@ namespace SimulatedCaffe
     class Pending:StateCustInPlace
     {
         public string name = "Pending";
+        bool pay;
         public void Handle(CustomerInPlace customer)
         {
-            customer.state = new Pending();
+            
+            if (pay == false)
+            {
+                customer.budget = customer.budget - 100;
+            }
+            pay = true;
         }
     }
 }

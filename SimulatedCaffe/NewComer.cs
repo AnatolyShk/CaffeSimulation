@@ -11,8 +11,10 @@ namespace SimulatedCaffe
         public string name = "NewComer";
         public void Handle(CustomerInPlace customer)
         {
-            customer.state = new NewComer();
+            if (customer != null)
+            {
+                customer.MoveToTarget(customer.Target.PositionX, customer.Target.PositionY);
+            }
         }
-
     }
 }

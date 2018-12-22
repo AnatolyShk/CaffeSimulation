@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    public interface StateCustWithHim:State
+    class StuffFactory
     {
-        void Handle(CustomerWithHim customer);
     }
 }

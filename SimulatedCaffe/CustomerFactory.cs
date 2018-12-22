@@ -11,7 +11,7 @@ namespace SimulatedCaffe
         public int budget;
         public People CreatePeople(string name, int PositionX, int PositionY, State state)
        {
-            return new CustomerInPlace(name,PositionX,PositionY,budget,state);
+            return new CustomerInPlace(name,PositionX,PositionY,budget,(StateCustInPlace)state);
        }
     }
 }

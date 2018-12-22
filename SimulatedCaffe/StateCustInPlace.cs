@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    public class StateCustInPlace :State
+    public interface StateCustInPlace:State
     {
-       public void getOrder(CustomerInPlace customer)
-        {
-            customer.state = new NewComer();
-        }
+        void Handle(CustomerInPlace customer);
     }
 }

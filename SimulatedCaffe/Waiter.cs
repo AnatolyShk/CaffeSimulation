@@ -10,8 +10,10 @@ namespace SimulatedCaffe
     {
         List<string> orders;
         public Table workSpace;
-        public Waiter(string name, int PositionX, int PositionY, Table workSpace):base(name,PositionX,PositionY,workSpace)
+        public StateWaiter state;
+        public Waiter(string name, int PositionX, int PositionY, Table workSpace,StateWaiter state):base(name,PositionX,PositionY,workSpace)
         {
+            this.state = state;
             this.workSpace = workSpace;
         }
         public void TakeOrder(OrderList order)
@@ -21,6 +23,10 @@ namespace SimulatedCaffe
         public void AnnounceTheMenu(OrderList order)
         {
             order.Notify(this.orders);
+        }
+        public void Request()
+        {
+            this.state.Handle(this);
         }
     }
 }

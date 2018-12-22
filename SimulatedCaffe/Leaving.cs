@@ -10,7 +10,8 @@ namespace SimulatedCaffe
     {
         public void Handle(CustomerInPlace customer)
         {
-            customer.state = new Leaving();
+             customer.MoveToTarget(10, 10);
+
         }
     }
 }

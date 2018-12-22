@@ -13,14 +13,14 @@ namespace SimulatedCaffe
         public int EatTime;
         public int Timer;
         Random rng;
-        StateCustInPlace state;
-        State st { get; set; }
-        public CustomerInPlace(string name, int PositionX, int PositionY, int budget, State state) : base(name, PositionX, PositionY,budget)
+        public StateCustInPlace state;
+        public CustomerInPlace(string name, int PositionX, int PositionY, int budget, StateCustInPlace state) : base(name, PositionX, PositionY,budget)
         {
+            this.state = state;
             rng = new Random();
+            this.Timer = 0;
             this.budget = budget;
-            this.state = (StateCustInPlace)state;
-            this.EatTime = rng.Next(10, 60);
+            this.EatTime = rng.Next(10000, 20000);
         }
         public Table FindFreeTable(Table tables)
         {
@@ -33,10 +33,9 @@ namespace SimulatedCaffe
             return tables;
 
         }
-        public void  MakeOrdering()
+        public void Request()
         {
-            state.getOrder(this);
-            state = new NewComer();
+            this.state.Handle(this);
         }
     }
 }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class TransferOrder : StateWaiter
+    public class TransferOrder : StateWaiter
     {
-        public void Handle(CustomerInPlace customer)
+        public void Handle(Waiter waiter)
         {
-            customer.state = new WaiterGetOrder();
+            waiter.MoveToTarget(waiter.targetPosX, waiter.targetPosY);
         }
     }
 }

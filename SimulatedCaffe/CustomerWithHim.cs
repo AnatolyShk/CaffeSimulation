@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimulatedCaffe
 {
-    class CustomerWithHim : Customer
+    public class CustomerWithHim : Customer
     {
         int Target;
         public CustomerWithHim(string name, int PositionX, int PositionY, int budget) : base(name, PositionX, PositionY, budget)

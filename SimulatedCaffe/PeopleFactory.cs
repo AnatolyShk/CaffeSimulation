@@ -8,7 +8,7 @@ namespace SimulatedCaffe
 {
     public interface PeopleFactory
     {
-         People CreatePeople(string name, int PositionX, int PositionY, State state);
+         People CreatePeople(string name, int PositionX, int PositionY,State state);
 
         
     }

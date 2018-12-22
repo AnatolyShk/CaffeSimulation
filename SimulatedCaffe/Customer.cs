@@ -10,6 +10,7 @@ namespace SimulatedCaffe
     {
 
         public int budget;
+        
         public Customer(string name, int PositionX, int PositionY, int budget ):base(name,PositionX,PositionY)
         {
             this.budget = budget;

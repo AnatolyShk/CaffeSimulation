@@ -11,7 +11,7 @@ namespace SimulatedCaffe
         Table workSpace;
         public People CreatePeople(string name, int PositionX, int PositionY,State state)
         {
-            return new Waiter(name,PositionX,PositionY,workSpace);
+            return new Waiter(name,PositionX,PositionY,workSpace,(StateWaiter)state);
         }
     }
 }

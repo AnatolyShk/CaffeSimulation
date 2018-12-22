@@ -11,7 +11,7 @@ namespace SimulatedCaffe
         public string name = "Eating";
         public void Handle(CustomerInPlace customer)
         {
-            customer.state = new Leaving();
+           
         }
     }
 }

@@ -8,9 +8,10 @@ namespace SimulatedCaffe
 {
     public class WaiterPending:StateWaiter
     {
-        public void Handle(CustomerInPlace customer)
+        public void Handle(Waiter waiter)
         {
-            customer.state = new Pending();
+            waiter.targetPosX = 5;
+            waiter.targetPosY = 150;
         }
     }
 }
